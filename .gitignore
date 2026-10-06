@@ -1,0 +1,19 @@
+# Maven 编译输出
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# 日志
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
