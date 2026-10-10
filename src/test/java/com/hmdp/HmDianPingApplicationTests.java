@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,6 +49,19 @@ class HmDianPingApplicationTests {
     void testSave() throws InterruptedException {
         Shop shop = shopService.getById(1L);
         cacheClient.setWIthLogicalExpire(RedisConstants.CACHE_SHOP_KEY+1L,shop,10L, TimeUnit.SECONDS);
+    }
+    @Test
+    void initShopToRedis() {
+        List<Shop> shops = shopService.list();
+        for (Shop shop : shops) {
+            cacheClient.setWIthLogicalExpire(
+                    RedisConstants.CACHE_SHOP_KEY + shop.getId(),
+                    shop,
+                    30L,
+                    TimeUnit.MINUTES
+            );
+        }
+        System.out.println("店铺缓存预热完成：" + shops.size() + " 条");
     }
 
 }

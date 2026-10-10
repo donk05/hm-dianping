@@ -81,7 +81,7 @@ public class CacheClient {
     public <R,ID> R queryWithLogicalExpire( String keyPrifix ,ID id,Class<R> type,Function<ID,R> dbfallback,Long time,TimeUnit unit){
         String key=keyPrifix+id;
         //从redis查缓存
-        String json = stringRedisTemplate.opsForValue().get(RedisConstants.CACHE_SHOP_KEY + id);
+        String json = stringRedisTemplate.opsForValue().get(key);
         //判断是否存在
         if (StrUtil.isBlank(json)) {
             //1.未命中，直接返回
